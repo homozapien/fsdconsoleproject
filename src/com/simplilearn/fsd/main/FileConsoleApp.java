@@ -9,7 +9,7 @@ import com.simplilearn.fsd.helper.Commander;
 import com.simplilearn.fsd.helper.Constant;
 import com.simplilearn.fsd.helper.Utility;
 
-public class FileHandlingConsoleApp {
+public class FileConsoleApp {
 
 	private static Commander commander;
 	private static String  workingPath;
