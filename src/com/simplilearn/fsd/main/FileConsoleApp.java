@@ -26,8 +26,6 @@ public class FileConsoleApp
 		// Do you want to continue the execution, a redundant question
 		Utility.promptForContinuation();
 
-		System.out.println("....You chose to continue to execution......  ");
-
 		String workingDir = args.length > 1 ? args[0] : Constant.ROOT;
 
 		commander = new Commander(workingDir);
@@ -38,7 +36,7 @@ public class FileConsoleApp
 		System.out.println("\"" + workingPath + "\"");
 
 		// enter the number of random files to initially create
-		int tempfileCount = Utility.promptForIntegerInput(Constant.FILENUM);
+		int tempfileCount = Utility.promptForIntegerInput();
 
 		if (tempfileCount > 0) {
 			createTempFilesInDirectory(tempfileCount);

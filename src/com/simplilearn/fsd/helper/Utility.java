@@ -19,14 +19,13 @@ public class Utility
 	
 	public static void displaySummaryInfo()
 	{
-		
 		System.out.println("\n***************************** Brief Execution Flow **********************************");
-		System.out.println("\nStep 1: Working Directory is created in command-line argument and if not specified, in a user home diirectory ");
-		System.out.println("\nStep 2: Temporary seed files are created in the working directory based on your Console input!");
-		System.out.println("\nStep 3: If exists, the contents of working directory are displayed!");
-		System.out.println("\nStep 4: Dynamic execution based on core business requirements and console input");
-		System.out.println("******************************************************************************************");
-		
+		System.out.println("\nStep 1: Root Path is created based on command-line argument during startup!");
+		System.out.println("\nStep 2: If no argument is provided, the java user directory forms the root path ");
+		System.out.println("\nStep 3: Up to 6 files may initially be created in a folder of the root path !");
+		System.out.println("\nStep 4: The current state of working directory may be displayed intermittently!");
+		System.out.println("\nStep 5: Execution is heavily reliant on console inputs by the user");
+		System.out.println("*****************************************************************************************");
 	}
 	
 	public static void promptForContinuation()
@@ -38,19 +37,19 @@ public class Utility
 		if(!input.toUpperCase().equals("Y"))
 		{
 			   scanner.close();
-			   System.out.println("Application will be exited, Bye Bye......");
+			   System.out.println("Application is exited, Good Bye!");
 			   System.exit(-1);
 		}
 		
 	}
 
-	public static int promptForIntegerInput(String msg)
+	public static int promptForIntegerInput()
 	{
 		int count = Constant.INPUT_COUNT;
 		
 		Scanner scanner = new Scanner(System.in);	
 		
-		System.out.println("\n\n"+msg);
+		System.out.println("\n" + Constant.FILENUM);
 		
 		while (count-- > 0 && scanner.hasNextInt())
 		{
@@ -75,25 +74,9 @@ public class Utility
         Scanner scanner = new Scanner(System.in);	
 		
 		System.out.println("\n" + Constant.FILENAME);
-		
-		//int count = Constant.INPUT_COUNT;
-		
-		//while (count-- > 0 && scanner.hasNext())
-	//{
-			String input = scanner.next();
+	
+		return scanner.next();
 			
-			/*if(input.)
-			{
-				return input;
-			}
-			else
-			{
-				System.out.println("Invalid user input detected, you have " + count + " failed attempt(s) before system exit! ");
-			}		
-		} */
-			
-			return input;
-		
 	}
 	
 	

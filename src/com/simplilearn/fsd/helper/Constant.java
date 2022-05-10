@@ -8,8 +8,8 @@ public class Constant
    public static final String COHORT   =  "\t\tMARCH 2022 ";
    public static final String APPTYPE  =  "\tInteractive Console Application";
    public static final String PROMPT   =  "Enter y or Y to continue execution, any other character to exit application";
-   public static final String FILENAME   =  "Enter the desired filename to Add or Delete or Retrieve to/from the working directory ";
-   public static final String FILENUM  = "Enter the number of random files to create initially in working directory, valid range 0 to 6 ";
+   public static final String FILENAME =  "Enter the desired filename to Add or Delete or Retrieve to/from the working directory ";
+   public static final String FILENUM  =  "Enter the number of random files to create initially in working directory, valid range 0 to 6 ";
    public static final String ROOT     =  System.getProperty("user.dir");
    public static final String MYPATH   =  "/foobar";
    public static final String FILE_PREFIX = "demo";
