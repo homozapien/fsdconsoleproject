@@ -1,7 +1,7 @@
 package com.simplilearn.fsd.main;
 
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileSystems;
 import java.util.Collections;
 import java.util.List;
 
@@ -92,9 +92,9 @@ public class FileHandlingConsoleApp {
 			List<String> fileNameList = commander.retrieveSortedFileNames();
 
 			if (fileNameList.isEmpty()) {
-				System.out.println("\nWorking directory is empty, 0 file found");
+				System.out.println("\nWorking directory is empty, 0 file found! ");
 			} else {
-				System.out.printf("\nWorking directory contains %d files shown as sorted list: ", fileNameList.size());
+				System.out.printf("\nWorking directory contains %d files shown as sorted list: \n", fileNameList.size());
 				Collections.sort(fileNameList);
 				fileNameList.forEach(System.out::println);
 			}
@@ -113,7 +113,7 @@ public class FileHandlingConsoleApp {
 			 try
 			 {
 		    	String filename2Add = Utility.promptForConsoleFileName();
-		    	String filepath = workingPath + File.pathSeparator + filename2Add + Constant.FILE_SUFFIX;
+		    	String filepath = workingPath + FileSystems.getDefault().getSeparator() + filename2Add + Constant.FILE_SUFFIX;
 			    System.out.println("Filename 2 add >> " + filepath);
 			    commander.addFileToWorkingDirector( filepath);
 			    
