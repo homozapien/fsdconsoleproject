@@ -46,23 +46,23 @@ public class Utility
 
 	public static int promptForIntegerInput(String msg)
 	{
-		int count = 1;
+		int count = Constant.INPUT_COUNT;
 		
 		Scanner scanner = new Scanner(System.in);	
 		
 		System.out.println("\n\n"+msg);
 		
-		while (count++ <= 3 && scanner.hasNextInt())
+		while (count-- > 0 && scanner.hasNextInt())
 		{
 			int input = scanner.nextInt();
 			
-			if(input >= 0 && input <= 6)
+			if(input >= Constant.MIN_SEED_FILES && input <= Constant.MAX_SEED_FILES)
 			{
 				return input;
 			}
 			else
 			{
-				System.out.println("Input value out of range, please try again ");
+				System.out.println("Input value out of range, you have " + count + " failed attempt(s) before system exit! ");
 			}
 			
 		}
@@ -74,13 +74,13 @@ public class Utility
 	
 	public static String promptForUserAction()
 	{
-		int count = 1;
+		int count = Constant.INPUT_COUNT;
 		
 		Scanner scanner = new Scanner(System.in);	
 		
 		System.out.println("\n" + getConsoleInputGuide());
 		
-		while (count++ <= 3 && scanner.hasNext())
+		while (count-- > 0 && scanner.hasNext())
 		{
 			String input = scanner.next();
 			
@@ -90,7 +90,7 @@ public class Utility
 			}
 			else
 			{
-				System.out.println("Invalid user input detected, please try again");
+				System.out.println("Invalid user input detected, you have " + count + " failed attempt(s) before system exit! ");
 			}		
 		}
 		
