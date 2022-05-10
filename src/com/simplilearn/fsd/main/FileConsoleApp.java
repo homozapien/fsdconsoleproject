@@ -125,7 +125,17 @@ public class FileConsoleApp {
 			break;
 		case "DELE":
 			System.out.println("**********************DELETION ACTION IN PROGRESS*******");
-			String filename2Dele = Utility.promptForConsoleFileName();
+			 try
+			 {
+			    commander.deleteFileFromDirectory(getFileName());
+			    System.out.println("File successfully deleted in working directory; ");
+			    System.out.println("Enter thd DISP input to view refreshed working directory ");
+			    
+			 }
+			 catch(IOException exception)
+			 {
+				 System.err.println(exception);
+			 }
 			break;
 		case "DISP":
 			System.out.println("**********************DISPLAY ACTION IN PROGRESS*******");
