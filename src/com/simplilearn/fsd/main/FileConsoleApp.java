@@ -112,7 +112,7 @@ public class FileConsoleApp {
 
 			 try
 			 {
-			    commander.addFileToWorkingDirector( getFileName());
+			    commander.addFileToWorkingDirector(getFileName());
 			    System.out.println("File successfully created in workign directory; ");
 			    System.out.println("Enter thd DISP input to view the latest content of working directory ");
 			    
