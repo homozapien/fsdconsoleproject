@@ -9,12 +9,13 @@ import com.simplilearn.fsd.helper.Commander;
 import com.simplilearn.fsd.helper.Constant;
 import com.simplilearn.fsd.helper.Utility;
 
-public class FileConsoleApp {
-
+public class FileConsoleApp
+{
 	private static Commander commander;
 	private static String  workingPath;
 
-	public static void main(String[] args) {
+	public static void main(String[] args) 
+	{
 
 		// Display welcome Message
 		Utility.displayWelcomeDetails();
@@ -22,7 +23,7 @@ public class FileConsoleApp {
 		// display usage information
 		Utility.displaySummaryInfo();
 
-		// Do you want to continue the execution, just a redundant question
+		// Do you want to continue the execution, a redundant question
 		Utility.promptForContinuation();
 
 		System.out.println("....You chose to continue to execution......  ");
@@ -47,15 +48,15 @@ public class FileConsoleApp {
 		displaySortedFileNames();
 
 		String userInput = "";
-		do {
+		do 
+		{
 			userInput = Utility.promptForUserAction();
-
 			processUserConsoleInput(userInput);
 		} while (!userInput.equalsIgnoreCase("EXIT"));
 
-		if (userInput.equalsIgnoreCase("EXIT")) {
-			System.out.println(
-					"******************************************************************************************");
+		if (userInput.equalsIgnoreCase("EXIT")) 
+		{
+			System.out.println("****************************************************************************************");
 			System.out.println(" Execution will be terminated, System will exit! Bye bye...... ");
 			System.exit(-1);
 
@@ -79,26 +80,37 @@ public class FileConsoleApp {
 
 	}
 
-	private static void createTempFilesInDirectory(int tempfileCount) {
-		try {
+	private static void createTempFilesInDirectory(int tempfileCount) 
+	{
+		try
+		{
 			commander.createTempFilesInDirectory(tempfileCount);
-		} catch (IOException exception) {
+		} 
+		catch (IOException exception) 
+		{
 			exception.printStackTrace(System.out);
 		}
 	}
 
-	private static void displaySortedFileNames() {
-		try {
+	private static void displaySortedFileNames() 
+	{
+		try 
+		{
 			List<String> fileNameList = commander.retrieveSortedFileNames();
 
-			if (fileNameList.isEmpty()) {
+			if (fileNameList.isEmpty())
+			{
 				System.out.println("\nWorking directory is empty, 0 file found! ");
-			} else {
+			}
+			else
+			{
 				System.out.printf("\nWorking directory contains %d files shown as sorted list: \n", fileNameList.size());
 				Collections.sort(fileNameList);
 				fileNameList.forEach(System.out::println);
 			}
-		} catch (IOException exception) {
+		}
+		catch (IOException exception) 
+		{
 			exception.printStackTrace(System.out);
 		}
 
@@ -112,7 +124,7 @@ public class FileConsoleApp {
 
 			 try
 			 {
-			    commander.addFileToWorkingDirector(getFileName());
+			    commander.addFileToWorkingDirector(getFileNameFromConsoleInput());
 			    System.out.println("File successfully created in workign directory; ");
 			    System.out.println("Enter thd DISP input to view the latest content of working directory ");
 			    
@@ -127,7 +139,7 @@ public class FileConsoleApp {
 			System.out.println("**********************DELETION ACTION IN PROGRESS*******");
 			 try
 			 {
-			    commander.deleteFileFromDirectory(getFileName());
+			    commander.deleteFileFromDirectory(getFileNameFromConsoleInput());
 			    System.out.println("File successfully deleted in working directory; ");
 			    System.out.println("Enter thd DISP input to view refreshed working directory ");
 			    
@@ -143,7 +155,12 @@ public class FileConsoleApp {
 			break;
 		case "SEAR":
 			System.out.println("**********************SEARCH ACTION IN PROGRESS*******");
-			String filename2Sear = Utility.promptForConsoleFileName();
+			String filename = getFileNameFromConsoleInput();
+			 boolean found = commander.checkIfFileExistInDirectory(filename);
+			 if (found)
+			   System.out.println("The entered filename "+ filename +" exists in the working directory ");
+			 else
+				System.out.println("The entered filename "+ filename +" does not exist in the working directory ");
 			break;
 		case "RETR":
 			System.out.println("**********************RETRIEVAL ACTION IN PROGRESS*******");
@@ -156,7 +173,7 @@ public class FileConsoleApp {
 
 	}
 	
-	private static String getFileName()
+	private static String getFileNameFromConsoleInput()
 	{
 		String filename = Utility.promptForConsoleFileName();
     	return workingPath + FileSystems.getDefault().getSeparator() + filename + Constant.FILE_SUFFIX;

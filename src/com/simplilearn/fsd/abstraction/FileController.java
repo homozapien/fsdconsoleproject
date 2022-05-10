@@ -11,7 +11,7 @@ public interface FileController
 	
 	public void addFileToFolder(Path filepath) throws IOException;
 	
-	public boolean searchFileInFolder(Path filepath) throws IOException;
+	public boolean checkIfFileExistInDirectory(Path filepath);
 	
 	public void deleteFileInFolder(Path filepath) throws IOException;
 	

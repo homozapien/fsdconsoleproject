@@ -30,7 +30,8 @@ public class FileHandler implements FileController {
 	                  
 	Charset charset = Charset.forName("US-ASCII");
 
-	public FileHandler(String rootPath) {
+	public FileHandler(String rootPath) 
+	{
 		this.rootPath = rootPath;
 	}
 
@@ -62,7 +63,6 @@ public class FileHandler implements FileController {
 		}
 	}
 
-	
 	
 	public void createTempFilesInDirectory(int tempfileCount) throws IOException
 	{
@@ -119,9 +119,9 @@ public class FileHandler implements FileController {
 	}
 
 	@Override
-	public boolean searchFileInFolder(Path filepath) throws IOException {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean checkIfFileExistInDirectory(Path filepath)
+	{
+		return Files.exists(filepath);
 	}
 
 	@Override
@@ -145,7 +145,6 @@ public class FileHandler implements FileController {
 
 	}
 
-	
 	
 	@Override
 	public void destroyRootFolder(Path path) throws IOException

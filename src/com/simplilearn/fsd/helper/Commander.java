@@ -43,6 +43,11 @@ public class Commander {
 			throw e;
 		}
 
+	} 
+	
+	public boolean checkIfFileExistInDirectory(String filepath) 
+	{
+			return this.fileHandler.checkIfFileExistInDirectory(Paths.get(filepath));
 	}
 	
 	public void deleteFileFromDirectory(String filepath) throws IOException 
@@ -58,9 +63,11 @@ public class Commander {
 	}
 	
 	public List<String> retrieveSortedFileNames() throws IOException {
-		try {
+		try
+		{
 			return ((FileHandler) (this.fileHandler)).retrieveSortedFileNames();
-		} catch (IOException e) {
+		} 
+		catch (IOException e) {
 			throw e;
 		}
 	}
