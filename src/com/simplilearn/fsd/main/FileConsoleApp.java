@@ -112,10 +112,9 @@ public class FileConsoleApp {
 
 			 try
 			 {
-		    	String filename2Add = Utility.promptForConsoleFileName();
-		    	String filepath = workingPath + FileSystems.getDefault().getSeparator() + filename2Add + Constant.FILE_SUFFIX;
-			    System.out.println("Filename 2 add >> " + filepath);
-			    commander.addFileToWorkingDirector( filepath);
+			    commander.addFileToWorkingDirector( getFileName());
+			    System.out.println("File successfully created in workign directory; ");
+			    System.out.println("Enter thd DISP input to view the latest content of working directory ");
 			    
 			 }
 			 catch(IOException exception)
@@ -146,5 +145,12 @@ public class FileConsoleApp {
 		}
 
 	}
+	
+	private static String getFileName()
+	{
+		String filename = Utility.promptForConsoleFileName();
+    	return workingPath + FileSystems.getDefault().getSeparator() + filename + Constant.FILE_SUFFIX;
+	}
+	
 
 }

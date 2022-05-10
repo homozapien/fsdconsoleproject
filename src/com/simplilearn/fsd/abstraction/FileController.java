@@ -11,9 +11,9 @@ public interface FileController
 	
 	public void addFileToFolder(Path filepath) throws IOException;
 	
-	public boolean searchFileInFolder(String filename);
+	public boolean searchFileInFolder(Path filepath) throws IOException;
 	
-	public void deleteFileInFolder(String filename);
+	public void deleteFileInFolder(Path filepath) throws IOException;
 	
 	public void destroyRootFolder(Path path) throws IOException;
 	

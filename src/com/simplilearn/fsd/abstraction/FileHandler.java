@@ -117,13 +117,13 @@ public class FileHandler implements FileController {
 	}
 
 	@Override
-	public boolean searchFileInFolder(String filename) {
+	public boolean searchFileInFolder(Path filepath) throws IOException {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public void deleteFileInFolder(String filename) 
+	public void deleteFileInFolder(Path filepath) throws IOException
 	{
 		// TODO Auto-generated method stub
 
