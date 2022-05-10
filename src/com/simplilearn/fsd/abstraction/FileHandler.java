@@ -1,8 +1,10 @@
 package com.simplilearn.fsd.abstraction;
 
 import java.nio.charset.Charset;
+import java.nio.file.DirectoryNotEmptyException;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Timestamp;
@@ -125,7 +127,21 @@ public class FileHandler implements FileController {
 	@Override
 	public void deleteFileInFolder(Path filepath) throws IOException
 	{
-		// TODO Auto-generated method stub
+		try
+		{
+				Files.delete(filepath);
+		}
+		catch (NoSuchFileException nsf) 
+		{
+		    throw new IOException(nsf);
+		} 
+		catch (DirectoryNotEmptyException dne) {
+			throw new IOException(dne);
+		}
+		catch(IOException exception)
+		{
+			throw exception;
+		}
 
 	}
 
