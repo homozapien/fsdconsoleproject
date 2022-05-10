@@ -37,8 +37,19 @@ public class Commander {
 	{
 		try 
 		{
-			java.nio.file.Path path = Paths.get(filepath );
-			this.fileHandler.addFileToFolder(path);
+			this.fileHandler.addFileToFolder(Paths.get(filepath));
+		} 
+		catch (IOException e) {
+			throw e;
+		}
+
+	}
+	
+	public void deleteFileFromDirectory(String filepath) throws IOException 
+	{
+		try 
+		{
+			this.fileHandler.deleteFileInFolder(Paths.get(filepath));
 		} 
 		catch (IOException e) {
 			throw e;
