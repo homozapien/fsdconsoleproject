@@ -9,7 +9,7 @@ public interface FileController
     
 	public String createRootDirectory() throws IOException;
 	
-	public void addFileToFolder(String filename);
+	public void addFileToFolder(Path filepath) throws IOException;
 	
 	public boolean searchFileInFolder(String filename);
 	

@@ -63,11 +63,36 @@ public class Utility
 			else
 			{
 				System.out.println("Input value out of range, you have " + count + " failed attempt(s) before system exit! ");
-			}
-			
+			}			
 		}
 		
 		return 0;
+		
+	}
+	
+	public static String promptForConsoleFileName()
+	{
+        Scanner scanner = new Scanner(System.in);	
+		
+		System.out.println("\n" + Constant.FILENAME);
+		
+		//int count = Constant.INPUT_COUNT;
+		
+		//while (count-- > 0 && scanner.hasNext())
+	//{
+			String input = scanner.next();
+			
+			/*if(input.)
+			{
+				return input;
+			}
+			else
+			{
+				System.out.println("Invalid user input detected, you have " + count + " failed attempt(s) before system exit! ");
+			}		
+		} */
+			
+			return input;
 		
 	}
 	

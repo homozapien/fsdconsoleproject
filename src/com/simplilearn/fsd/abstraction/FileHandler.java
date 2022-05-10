@@ -1,9 +1,11 @@
 package com.simplilearn.fsd.abstraction;
 
 import java.nio.charset.Charset;
+import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Timestamp;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,6 +21,12 @@ public class FileHandler implements FileController {
 
 	private final String rootPath; // this is the path where we would create the files
 	private Path path = null;
+	final StringBuffer buffer = new StringBuffer(Constant.COURSE)
+	                    .append("\n" + Constant.COHORT)
+	                    .append("\n" + Constant.APPTYPE)
+	                    .append("\n\n" + Constant.APPTYPE);
+	                  
+	Charset charset = Charset.forName("US-ASCII");
 
 	public FileHandler(String rootPath) {
 		this.rootPath = rootPath;
@@ -52,21 +60,12 @@ public class FileHandler implements FileController {
 		}
 	}
 
+	
+	
 	public void createTempFilesInDirectory(int tempfileCount) throws IOException
 	{
-		
 		try 
 		{
-			String s = new StringBuffer(Constant.COURSE)
-					          .append("\n" + Constant.COHORT)
-					          .append("\n" + Constant.APPTYPE)
-					          .append("\n\n" + Constant.APPTYPE)
-					          .toString();
-			
-			Charset charset = Charset.forName("US-ASCII");
-			
-			byte[] buff = s.getBytes(charset);
-			
 			if (path == null)
 			{
 				this.createRootDirectory();
@@ -75,7 +74,7 @@ public class FileHandler implements FileController {
 			for (int index = 1; index <= tempfileCount; index++ )
 			{
 				Path temp = Files.createTempFile(path, Constant.FILE_PREFIX, Constant.FILE_SUFFIX);
-				Files.write(temp, buff);				
+				this.addFileToFolder(temp);			
 			}
 			
 		} 
@@ -87,9 +86,34 @@ public class FileHandler implements FileController {
 	}
 
 	@Override
-	public void addFileToFolder(String filename) {
-		// TODO Auto-generated method stub
+	public void addFileToFolder(Path filepath) throws IOException
+	{
+		try 
+		{
+			
+			String str =buffer.append("\n created at " + new Timestamp(System.currentTimeMillis()).toString()) .toString();
 
+            byte[] buff = str.getBytes(charset);
+
+				
+			if(!Files.exists(filepath))
+			{
+				Files.createFile(filepath);
+			}
+			
+			Files.write(filepath, buff);				
+						
+		} 
+		catch (FileAlreadyExistsException fae) 
+		{
+			// TODO Auto-generated catch block
+			throw new IOException(fae);
+		}
+		catch (IOException e) 
+		{
+			// TODO Auto-generated catch block
+			throw e;
+		}
 	}
 
 	@Override
