@@ -23,10 +23,10 @@ public class Commander {
 		}
 	}
 
-	public void createTempFilesInDirectory(int tempfileCount) throws IOException 
+	public void createDefaultFilesInDirectory(int tempfileCount) throws IOException 
 	{
 		try {
-			((FileHandler) (this.fileHandler)).createTempFilesInDirectory(tempfileCount);
+			((FileHandler) (this.fileHandler)).createDefaultFilesInDirectory(tempfileCount);
 		} catch (IOException e) {
 			throw e;
 		}

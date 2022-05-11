@@ -3,6 +3,7 @@ package com.simplilearn.fsd.abstraction;
 import java.nio.charset.Charset;
 import java.nio.file.DirectoryNotEmptyException;
 import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
@@ -10,6 +11,7 @@ import java.nio.file.Paths;
 import java.sql.Timestamp;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -64,29 +66,44 @@ public class FileHandler implements FileController {
 	}
 
 	
-	public void createTempFilesInDirectory(int tempfileCount) throws IOException
+	public void createDefaultFilesInDirectory(int tempfileCount) throws IOException
 	{
 		try 
 		{
-			if (path == null)
+			if (this.path == null)
 			{
 				this.createRootDirectory();
 			}
 		
 			for (int index = 1; index <= tempfileCount; index++ )
 			{
-				Path temp = Files.createTempFile(path, Constant.FILE_PREFIX, Constant.FILE_SUFFIX);
-				this.addFileToFolder(temp);			
+				String filePath = this.path + FileSystems.getDefault().getSeparator() + this.generateRandomString() + Constant.FILE_SUFFIX;
+				this.addFileToFolder(Paths.get(filePath));			
 			}
 			
 		} 
 		catch (IOException e) 
 		{
-			// TODO Auto-generated catch block
 			throw e;
 		}
 	}
 
+	//Copyright - generateRandomString() : https://www.baeldung.com/java-random-string
+	private  String generateRandomString() {
+	    int leftLimit = 48; // numeral '0'
+	    int rightLimit = 122; // letter 'z'
+	    int targetStringLength = 10;
+	    Random random = new Random();
+
+	    String generatedString = random.ints(leftLimit, rightLimit + 1)
+	      .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
+	      .limit(targetStringLength)
+	      .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+	      .toString();
+
+	    return generatedString;
+	}
+	
 	@Override
 	public void addFileToFolder(Path filepath) throws IOException
 	{

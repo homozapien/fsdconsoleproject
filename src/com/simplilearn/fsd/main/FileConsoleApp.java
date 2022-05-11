@@ -59,7 +59,6 @@ public class FileConsoleApp {
 		} 
 		catch (Exception exception) 
 		{
-			//exception.printStackTrace(System.out);
 			System.err.println(exception.getMessage());
 			System.out.println("Execution will be terminated, System will exit! Bye bye...... ");
 			System.exit(-1);			
@@ -82,7 +81,7 @@ public class FileConsoleApp {
 
 	private static void createTempFilesInDirectory(int tempfileCount) throws Exception {
 		try {
-			commander.createTempFilesInDirectory(tempfileCount);
+			commander.createDefaultFilesInDirectory(tempfileCount);
 		} catch (IOException exception) {
 			throw new Exception(exception);
 		}
