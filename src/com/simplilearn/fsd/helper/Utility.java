@@ -61,7 +61,7 @@ public class Utility
 			}
 			else
 			{
-				System.out.println("Input value out of range, you have " + count + " failed attempt(s) before system exit! ");
+				System.out.println("Input value out of range, you have " + count + " attempt(s) before the default value is used! ");
 			}			
 		}
 		

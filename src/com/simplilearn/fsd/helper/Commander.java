@@ -1,6 +1,5 @@
 package com.simplilearn.fsd.helper;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
@@ -11,7 +10,8 @@ import com.simplilearn.fsd.abstraction.*;
 public class Commander {
 	private FileController fileHandler;
 
-	public Commander(final String rootPath) {
+	public Commander(final String rootPath) 
+	{
 		this.createFileHandler(rootPath);
 	}
 

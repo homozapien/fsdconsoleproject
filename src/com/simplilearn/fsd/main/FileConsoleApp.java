@@ -26,7 +26,7 @@ public class FileConsoleApp {
 			// Do you want to continue the execution, a redundant question
 			Utility.promptForContinuation();
 
-			String workingDir = args.length > 1 ? args[0] : Constant.ROOT;
+			String workingDir = args.length == 1 ? args[0] : Constant.ROOT;
 
 			commander = new Commander(workingDir);
 
