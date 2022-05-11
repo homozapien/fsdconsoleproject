@@ -1,6 +1,7 @@
 package com.simplilearn.fsd.helper;
 
 import java.io.IOException;
+import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Paths;
 import java.util.List;
 
@@ -33,13 +34,18 @@ public class Commander {
 
 	}
 
-	public void addFileToWorkingDirector(String filepath) throws IOException 
+	public void addFileToWorkingDirector(String filepath) throws FileAlreadyExistsException, IOException 
 	{
 		try 
 		{
 			this.fileHandler.addFileToFolder(Paths.get(filepath));
-		} 
-		catch (IOException e) {
+		}
+		catch (FileAlreadyExistsException fae) 
+		{
+			throw fae;
+		}
+		catch (IOException e) 
+		{
 			throw e;
 		}
 

@@ -1,6 +1,7 @@
 package com.simplilearn.fsd.main;
 
 import java.io.IOException;
+import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.FileSystems;
 import java.util.Collections;
 import java.util.List;
@@ -80,9 +81,12 @@ public class FileConsoleApp {
 	}
 
 	private static void createTempFilesInDirectory(int tempfileCount) throws Exception {
-		try {
+		try
+		{
 			commander.createDefaultFilesInDirectory(tempfileCount);
-		} catch (IOException exception) {
+		} 
+		catch (IOException exception) 
+		{
 			throw new Exception(exception);
 		}
 	}
@@ -106,27 +110,51 @@ public class FileConsoleApp {
 	}
 
 	private static void processUserConsoleInput(String input) throws Exception {
-		try {
-			switch (input.toUpperCase()) {
-			case "ADD":
-				System.out.println("**********************ADDITION ACTION IN PROGRESS*******");
+
+		switch (input.toUpperCase()) {
+		case "ADD":
+			System.out.println("**********************ADDITION ACTION IN PROGRESS*******");
+			try 
+			{
 				commander.addFileToWorkingDirector(getFileNameFromConsoleInput());
 				System.out.println("File successfully created in workign directory! ");
 				System.out.println("Enter thd DISP input to view the latest content of working directory ");
-				break;
-			case "DELE":
-				System.out.println("**********************DELETION ACTION IN PROGRESS*******");
-
+			}
+			catch (FileAlreadyExistsException exception) 
+			{
+				exception.printStackTrace(System.out);
+			}
+			catch (Exception exception) 
+			{
+				throw exception;
+			}
+			break;
+		case "DELE":
+			System.out.println("**********************DELETION ACTION IN PROGRESS*******");
+			try {
 				commander.deleteFileFromDirectory(getFileNameFromConsoleInput());
 				System.out.println("File successfully deleted in working directory! ");
 				System.out.println("Enter thd DISP input to view refreshed working directory ");
-				break;
-			case "DISP":
-				System.out.println("**********************DISPLAY ACTION IN PROGRESS*******");
+			} 
+			catch (Exception exception) 
+			{
+				throw exception;
+			}
+			break;
+		case "DISP":
+			System.out.println("**********************DISPLAY ACTION IN PROGRESS*******");
+			try 
+			{
 				displaySortedFileNames();
-				break;
-			case "SEAR":
-				System.out.println("**********************SEARCH ACTION IN PROGRESS*******");
+			} 
+			catch (Exception exception) 
+			{
+				throw exception;
+			}
+			break;
+		case "SEAR":
+			System.out.println("**********************SEARCH ACTION IN PROGRESS*******");
+			try {
 				String filename = getFileNameFromConsoleInput();
 				boolean found = commander.checkIfFileExistInDirectory(filename);
 				if (found)
@@ -134,20 +162,23 @@ public class FileConsoleApp {
 				else
 					System.out
 							.println("The entered filename " + filename + " does not exist in the working directory ");
-				break;
-			case "RETR":
-				System.out.println("**********************RETRIEVAL ACTION IN PROGRESS*******");
-				String filename2Retr = Utility.promptForConsoleFileName();
-				break;
-
-			default:
-
+			} catch (Exception exception) {
+				throw exception;
 			}
-		} 
-		catch (Exception exception)
-		{
-			throw exception;
+			break;
+		case "RETR":
+			System.out.println("**********************RETRIEVAL ACTION IN PROGRESS*******");
+			try {
+				String filename2Retr = Utility.promptForConsoleFileName();
+
+			} catch (Exception exception) {
+				throw exception;
+			}
+			break;
+		default:
+
 		}
+		
 
 	}
 

@@ -105,32 +105,22 @@ public class FileHandler implements FileController {
 	}
 	
 	@Override
-	public void addFileToFolder(Path filepath) throws IOException
+	public void addFileToFolder(Path filepath) throws FileAlreadyExistsException, IOException 
 	{
 		try 
 		{
-			
-			String str =buffer.append("\n created at " + new Timestamp(System.currentTimeMillis()).toString()) .toString();
-
-            byte[] buff = str.getBytes(charset);
-
-				
-			if(!Files.exists(filepath))
-			{
-				Files.createFile(filepath);
-			}
-			
-			Files.write(filepath, buff);				
+		  Files.createFile(filepath);
+		  String str =buffer.append("\n created at " + new Timestamp(System.currentTimeMillis()).toString()) .toString();
+	      byte[] buff = str.getBytes(charset);
+		  Files.write(filepath, buff);				
 						
 		} 
 		catch (FileAlreadyExistsException fae) 
 		{
-			// TODO Auto-generated catch block
-			throw new IOException(fae);
+			throw fae;
 		}
 		catch (IOException e) 
 		{
-			// TODO Auto-generated catch block
 			throw e;
 		}
 	}
