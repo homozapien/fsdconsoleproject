@@ -6,14 +6,12 @@ import java.nio.file.Path;
 
 
 public interface FileController 
-{
-    
+{  
 	public String createRootDirectory() throws IOException;
 	
 	public void addFileToFolder(Path filepath) throws FileAlreadyExistsException, IOException;
 	
 	public boolean checkIfFileExistInDirectory(Path filepath);
 	
-	public void deleteFileInFolder(Path filepath) throws IOException;
-	
+	public void deleteFileInFolder(Path filepath) throws IOException;	
 }
