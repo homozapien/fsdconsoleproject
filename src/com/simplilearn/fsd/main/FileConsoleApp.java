@@ -112,14 +112,14 @@ public class FileConsoleApp {
 			case "ADD":
 				System.out.println("**********************ADDITION ACTION IN PROGRESS*******");
 				commander.addFileToWorkingDirector(getFileNameFromConsoleInput());
-				System.out.println("File successfully created in workign directory; ");
+				System.out.println("File successfully created in workign directory! ");
 				System.out.println("Enter thd DISP input to view the latest content of working directory ");
 				break;
 			case "DELE":
 				System.out.println("**********************DELETION ACTION IN PROGRESS*******");
 
 				commander.deleteFileFromDirectory(getFileNameFromConsoleInput());
-				System.out.println("File successfully deleted in working directory; ");
+				System.out.println("File successfully deleted in working directory! ");
 				System.out.println("Enter thd DISP input to view refreshed working directory ");
 				break;
 			case "DISP":

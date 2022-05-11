@@ -146,8 +146,8 @@ public class FileHandler implements FileController {
 	}
 
 	
-	@Override
-	public void destroyRootFolder(Path path) throws IOException
+	//@Override
+	private void destroyRootFolder(Path path) throws IOException
 	{
 
 		try (Stream<Path> stream = Files.list(path))

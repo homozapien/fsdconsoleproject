@@ -15,6 +15,6 @@ public interface FileController
 	
 	public void deleteFileInFolder(Path filepath) throws IOException;
 	
-	public void destroyRootFolder(Path path) throws IOException;
+	//public void destroyRootFolder(Path path) throws IOException;
 	
 }
