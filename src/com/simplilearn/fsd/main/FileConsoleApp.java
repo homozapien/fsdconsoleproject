@@ -3,8 +3,10 @@ package com.simplilearn.fsd.main;
 import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.FileSystems;
+import java.nio.file.Path;
 import java.util.Collections;
 import java.util.List;
+import java.util.TreeMap;
 
 import com.simplilearn.fsd.helper.Commander;
 import com.simplilearn.fsd.helper.Constant;
@@ -92,16 +94,20 @@ public class FileConsoleApp {
 	}
 
 	private static void displaySortedFileNames() throws Exception {
-		try {
-			List<String> fileNameList = commander.retrieveSortedFileNames();
+		try 
+		{
+			TreeMap<String, Path> fileNameMap = commander.retrieveSortedFileNames();
 
-			if (fileNameList.isEmpty()) {
+			if (fileNameMap.isEmpty()) 
+			{
 				System.out.println("\nWorking directory is empty, 0 file found! ");
 			} else {
 				System.out.printf("\nWorking directory contains %d files shown as sorted list: \n",
-						fileNameList.size());
-				Collections.sort(fileNameList);
-				fileNameList.forEach(System.out::println);
+						fileNameMap.size());
+			//	Collections.sort(fileNameList);
+				fileNameMap.forEach((key, value) -> {
+				System.out.println(key + "  -   " +value);	
+				} );
 			}
 		} catch (Exception exception) {
 			throw new Exception(exception);

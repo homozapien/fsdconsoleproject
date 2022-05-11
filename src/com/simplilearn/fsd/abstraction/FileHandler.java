@@ -9,10 +9,8 @@ import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Timestamp;
-import java.util.Collections;
-import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
+import java.util.TreeMap;
 import java.util.stream.Stream;
 
 import com.simplilearn.fsd.helper.Constant;
@@ -25,6 +23,9 @@ public class FileHandler implements FileController {
 
 	private final String rootPath; // this is the path where we would create the files
 	private Path path = null;
+	
+	private TreeMap<String, Path> filenameMap;
+	
 	final StringBuffer buffer = new StringBuffer(Constant.COURSE)
 	                    .append("\n" + Constant.COHORT)
 	                    .append("\n" + Constant.APPTYPE)
@@ -34,7 +35,8 @@ public class FileHandler implements FileController {
 
 	public FileHandler(String rootPath) 
 	{
-		this.rootPath = rootPath;
+		this.rootPath    = rootPath;
+		this.filenameMap = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 	}
 
 	@Override
@@ -88,21 +90,7 @@ public class FileHandler implements FileController {
 		}
 	}
 
-	//Copyright - generateRandomString() : https://www.baeldung.com/java-random-string
-	private  String generateRandomString() {
-	    int leftLimit = 48; // numeral '0'
-	    int rightLimit = 122; // letter 'z'
-	    int targetStringLength = 10;
-	    Random random = new Random();
-
-	    String generatedString = random.ints(leftLimit, rightLimit + 1)
-	      .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
-	      .limit(targetStringLength)
-	      .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-	      .toString();
-
-	    return generatedString;
-	}
+	
 	
 	@Override
 	public void addFileToFolder(Path filepath) throws FileAlreadyExistsException, IOException 
@@ -112,7 +100,9 @@ public class FileHandler implements FileController {
 		  Files.createFile(filepath);
 		  String str =buffer.append("\n created at " + new Timestamp(System.currentTimeMillis()).toString()) .toString();
 	      byte[] buff = str.getBytes(charset);
-		  Files.write(filepath, buff);				
+		  Files.write(filepath, buff);	
+		  String key = removeFileExtension(filepath);
+		  this.filenameMap.put(key, filepath);
 						
 		} 
 		catch (FileAlreadyExistsException fae) 
@@ -128,15 +118,25 @@ public class FileHandler implements FileController {
 	@Override
 	public boolean checkIfFileExistInDirectory(Path filepath)
 	{
-		return Files.exists(filepath);
+		 String key = removeFileExtension(filepath);
+		 return this.filenameMap.containsKey(key);
 	}
+	
+	public TreeMap<String, Path> retrieveSortedFileNames() 
+	{
+		return this.filenameMap;
+		
+	}
+	
 
 	@Override
 	public void deleteFileInFolder(Path filepath) throws IOException
 	{
 		try
 		{
-				Files.delete(filepath);
+			 String key = removeFileExtension(filepath);
+		     Files.delete(filepath);			 				
+			 this.filenameMap.remove(key);
 		}
 		catch (NoSuchFileException nsf) 
 		{
@@ -153,7 +153,6 @@ public class FileHandler implements FileController {
 	}
 
 	
-	//@Override
 	private void destroyRootFolder(Path path) throws IOException
 	{
 
@@ -172,6 +171,8 @@ public class FileHandler implements FileController {
 					);
 			        
 			Files.delete(path);
+			
+			this.filenameMap.clear();
 		} 
 		catch (IOException e)
 		{
@@ -180,28 +181,26 @@ public class FileHandler implements FileController {
 
 	}
 	
-	public List<String> retrieveSortedFileNames() throws IOException
+	private String removeFileExtension(Path filepath) 
 	{
-		if (!Files.exists(path)) 
-		{ 
-			return Collections.emptyList();
-		}
-		else
-		{
-			try (Stream<Path> stream = Files.list(path)) 
-			{
-		        return stream
-		          .filter(file -> !Files.isDirectory(file))
-		          .map(Path::getFileName)
-		          .map(Path::toString)
-		          .collect(Collectors.toList());
-		    }
-			catch (IOException e)
-			{
-				throw e;
-			}
-		}		
-		
-	}
+		String filename = filepath.getFileName().toString();
+	   return filename.substring(0, filename.lastIndexOf("."));
+	}	
+	
+	//Copyright - generateRandomString() : https://www.baeldung.com/java-random-string
+		private  String generateRandomString() {
+		    int leftLimit = 48; // numeral '0'
+		    int rightLimit = 122; // letter 'z'
+		    int targetStringLength = 10;
+		    Random random = new Random();
 
+		    String generatedString = random.ints(leftLimit, rightLimit + 1)
+		      .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
+		      .limit(targetStringLength)
+		      .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+		      .toString();
+
+		    return generatedString;
+		}
+		//End of Copyright - generateRandomString() : https://www.baeldung.com/java-random-string
 }

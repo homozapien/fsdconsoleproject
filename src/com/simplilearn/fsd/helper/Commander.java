@@ -2,17 +2,16 @@ package com.simplilearn.fsd.helper;
 
 import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
+import java.util.TreeMap;
 
 import com.simplilearn.fsd.abstraction.*;
-
 
 public class Commander {
 	private FileController fileHandler;
 
-	public Commander(final String rootPath) 
-	{
+	public Commander(final String rootPath) {
 		this.createFileHandler(rootPath);
 	}
 
@@ -24,8 +23,7 @@ public class Commander {
 		}
 	}
 
-	public void createDefaultFilesInDirectory(int tempfileCount) throws IOException 
-	{
+	public void createDefaultFilesInDirectory(int tempfileCount) throws IOException {
 		try {
 			((FileHandler) (this.fileHandler)).createDefaultFilesInDirectory(tempfileCount);
 		} catch (IOException e) {
@@ -34,52 +32,35 @@ public class Commander {
 
 	}
 
-	public void addFileToWorkingDirector(String filepath) throws FileAlreadyExistsException, IOException 
-	{
-		try 
-		{
+	public void addFileToWorkingDirector(String filepath) throws FileAlreadyExistsException, IOException {
+		try {
 			this.fileHandler.addFileToFolder(Paths.get(filepath));
-		}
-		catch (FileAlreadyExistsException fae) 
-		{
+		} catch (FileAlreadyExistsException fae) {
 			throw fae;
-		}
-		catch (IOException e) 
-		{
+		} catch (IOException e) {
 			throw e;
 		}
 
-	} 
-	
-	public boolean checkIfFileExistInDirectory(String filepath) 
-	{
-			return this.fileHandler.checkIfFileExistInDirectory(Paths.get(filepath));
 	}
-	
-	public void deleteFileFromDirectory(String filepath) throws IOException 
-	{
-		try 
-		{
+
+	public boolean checkIfFileExistInDirectory(String filepath) {
+		return this.fileHandler.checkIfFileExistInDirectory(Paths.get(filepath));
+	}
+
+	public void deleteFileFromDirectory(String filepath) throws IOException {
+		try {
 			this.fileHandler.deleteFileInFolder(Paths.get(filepath));
-		} 
-		catch (IOException e) {
+		} catch (IOException e) {
 			throw e;
 		}
 
 	}
-	
-	public List<String> retrieveSortedFileNames() throws IOException {
-		try
-		{
-			return ((FileHandler) (this.fileHandler)).retrieveSortedFileNames();
-		} 
-		catch (IOException e) {
-			throw e;
-		}
+
+	public TreeMap<String, Path> retrieveSortedFileNames() {
+		return ((FileHandler) (this.fileHandler)).retrieveSortedFileNames();
 	}
 
-	private void createFileHandler(String rootPath) 
-	{
+	private void createFileHandler(String rootPath) {
 		this.fileHandler = new FileHandler(rootPath);
 
 	}
