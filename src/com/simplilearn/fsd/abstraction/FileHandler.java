@@ -187,10 +187,10 @@ public class FileHandler implements FileController {
 	   return filename.substring(0, filename.lastIndexOf("."));
 	}	
 	
-	//Copyright - generateRandomString() : https://www.baeldung.com/java-random-string
+	
 		private  String generateRandomString() {
-		    int leftLimit = 48; // numeral '0'
-		    int rightLimit = 122; // letter 'z'
+		    int leftLimit = 48; 
+		    int rightLimit = 122; 
 		    int targetStringLength = 10;
 		    Random random = new Random();
 
@@ -202,5 +202,5 @@ public class FileHandler implements FileController {
 
 		    return generatedString;
 		}
-		//End of Copyright - generateRandomString() : https://www.baeldung.com/java-random-string
+		
 }
