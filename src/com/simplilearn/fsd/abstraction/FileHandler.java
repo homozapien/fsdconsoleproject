@@ -15,13 +15,14 @@ import java.util.stream.Stream;
 
 import com.simplilearn.fsd.helper.Constant;
 
+import java.io.File;
 import java.io.IOException;
 
 
 
 public class FileHandler implements FileController {
 
-	private final String rootPath; // this is the path where we would create the files
+	private final String rootPath; 
 	private Path path = null;
 	
 	private TreeMap<String, Path> filenameMap;
@@ -89,7 +90,6 @@ public class FileHandler implements FileController {
 			throw e;
 		}
 	}
-
 	
 	
 	@Override
@@ -122,12 +122,17 @@ public class FileHandler implements FileController {
 		 return this.filenameMap.containsKey(key);
 	}
 	
-	public TreeMap<String, Path> retrieveSortedFileNames() 
-	{
-		return this.filenameMap;
-		
+	@Override
+	public File retrieveFileFromDirectory(Path filepath) throws IOException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
+	public TreeMap<String, Path> retrieveSortedFileNames() 
+	{
+		return this.filenameMap;		
+	}
+
 
 	@Override
 	public void deleteFileInFolder(Path filepath) throws IOException
@@ -188,7 +193,7 @@ public class FileHandler implements FileController {
 	}	
 	
 	
-		private  String generateRandomString() {
+	private  String generateRandomString() {
 		    int leftLimit = 48; 
 		    int rightLimit = 122; 
 		    int targetStringLength = 10;
@@ -202,5 +207,7 @@ public class FileHandler implements FileController {
 
 		    return generatedString;
 		}
+
+	
 		
 }
