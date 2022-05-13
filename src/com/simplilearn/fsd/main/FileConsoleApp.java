@@ -104,9 +104,9 @@ public class FileConsoleApp {
 			} else {
 				System.out.printf("\nWorking directory contains %d files shown as sorted list: \n",
 						fileNameMap.size());
-			//	Collections.sort(fileNameList);
+				//	Collections.sort(fileNameList);
 				fileNameMap.forEach((key, value) -> {
-				System.out.println(key + "  -   " +value);	
+					System.out.println(key + "  -   " +value);	
 				} );
 			}
 		} catch (Exception exception) {
@@ -122,13 +122,23 @@ public class FileConsoleApp {
 			System.out.println("**********************ADDITION ACTION IN PROGRESS*******");
 			try 
 			{
-				commander.addFileToWorkingDirector(getFileNameFromConsoleInput());
-				System.out.println("File successfully created in workign directory! ");
-				System.out.println("Enter thd DISP input to view the latest content of working directory ");
+				String filename = getFileNameFromConsoleInput();
+				if(filename != null)
+				{
+					commander.addFileToWorkingDirector(filename);
+					System.out.println("File successfully created in workign directory! ");
+					System.out.println("Enter thd DISP input to view the latest content of working directory ");
+				}
+				else
+				{
+					System.out.println("Invalid input detected in the filename, please try this operation again");
+				}
 			}
 			catch (FileAlreadyExistsException exception) 
 			{
-				exception.printStackTrace(System.out);
+				//exception.printStackTrace(System.out);
+				System.err.println(exception);
+				//System.out.println(exception.getMessage());
 			}
 			catch (Exception exception) 
 			{
@@ -137,10 +147,20 @@ public class FileConsoleApp {
 			break;
 		case "DELE":
 			System.out.println("**********************DELETION ACTION IN PROGRESS*******");
-			try {
-				commander.deleteFileFromDirectory(getFileNameFromConsoleInput());
-				System.out.println("File successfully deleted in working directory! ");
-				System.out.println("Enter thd DISP input to view refreshed working directory ");
+			try 
+			{
+				String filename = getFileNameFromConsoleInput();
+				if(filename != null)
+				{
+					commander.deleteFileFromDirectory(filename);
+					System.out.println("File successfully deleted in working directory! ");
+					System.out.println("Enter thd DISP input to view refreshed working directory ");
+
+				}
+				else
+				{
+					System.out.println("Please try this operation again");
+				}
 			} 
 			catch (Exception exception) 
 			{
@@ -162,12 +182,20 @@ public class FileConsoleApp {
 			System.out.println("**********************SEARCH ACTION IN PROGRESS*******");
 			try {
 				String filename = getFileNameFromConsoleInput();
-				boolean found = commander.checkIfFileExistInDirectory(filename);
-				if (found)
-					System.out.println("The entered filename " + filename + " exists in the working directory ");
+
+				if(null != filename)
+				{
+
+					if (commander.checkIfFileExistInDirectory(filename))
+						System.out.println("The entered filename " + filename + " exists in the working directory ");
+					else
+						System.out.println("The entered filename " + filename + " does not exist in the working directory ");
+
+				}
 				else
-					System.out
-							.println("The entered filename " + filename + " does not exist in the working directory ");
+				{
+					System.out.println("Please try this operation again");
+				}
 			} catch (Exception exception) {
 				throw exception;
 			}
@@ -184,13 +212,18 @@ public class FileConsoleApp {
 		default:
 
 		}
-		
+
 
 	}
 
-	private static String getFileNameFromConsoleInput() {
+	private static String getFileNameFromConsoleInput() 
+	{
 		String filename = Utility.promptForConsoleFileName();
-		return workingPath + FileSystems.getDefault().getSeparator() + filename + Constant.FILE_SUFFIX;
+		if(null == filename)
+		{
+			return null;
+		}
+		return workingPath + FileSystems.getDefault().getSeparator() + filename;
 	}
 
 }

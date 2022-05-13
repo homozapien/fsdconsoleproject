@@ -71,12 +71,28 @@ public class Utility
 	
 	public static String promptForConsoleFileName()
 	{
-        Scanner scanner = new Scanner(System.in);	
+        Scanner scanner = new Scanner(System.in);
+        int count = Constant.INPUT_COUNT;
 		
 		System.out.println("\n" + Constant.FILENAME);
+		System.out.println(Constant.FILEXTENSION);
+		
+		while (count-- > 0 && scanner.hasNext())
+		{
 	
-		return scanner.next();
+            String input = scanner.next();
 			
+			if(validateStringFilenames(input))
+			{
+				return input;
+			}
+			else
+			{
+				System.out.println("Invalid filename entered, you have " + count + " failed attempt(s) before system exit! ");
+			}
+		}
+		
+		return null;
 	}
 	
 	
@@ -103,6 +119,20 @@ public class Utility
 		}
 		
 		return Constant.FileOperation.EXIT.toString();
+		
+	}
+	
+	private static boolean validateStringFilenames(String filename)
+	{
+		 String REGEX_PATTERN = "^[A-za-z0-9.]{1,2}\\.(tmp|txt|log)$";
+          
+		 if (filename == null || filename.isEmpty()) 
+		 {
+		        return false;
+		 }
+		 {
+		    return filename.toLowerCase().matches(REGEX_PATTERN);
+		 }
 		
 	}
 	

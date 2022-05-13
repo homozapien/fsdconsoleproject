@@ -37,7 +37,8 @@ public class FileHandler implements FileController {
 	public FileHandler(String rootPath) 
 	{
 		this.rootPath    = rootPath;
-		this.filenameMap = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+		//this.filenameMap = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+		this.filenameMap = new TreeMap<>();
 	}
 
 	@Override
@@ -101,8 +102,7 @@ public class FileHandler implements FileController {
 		  String str =buffer.append("\n created at " + new Timestamp(System.currentTimeMillis()).toString()) .toString();
 	      byte[] buff = str.getBytes(charset);
 		  Files.write(filepath, buff);	
-		  String key = removeFileExtension(filepath);
-		  this.filenameMap.put(key, filepath);
+		  this.filenameMap.put(filepath.getFileName().toString(), filepath);
 						
 		} 
 		catch (FileAlreadyExistsException fae) 
@@ -118,8 +118,7 @@ public class FileHandler implements FileController {
 	@Override
 	public boolean checkIfFileExistInDirectory(Path filepath)
 	{
-		 String key = removeFileExtension(filepath);
-		 return this.filenameMap.containsKey(key);
+		 return this.filenameMap.containsKey(filepath.getFileName().toString());
 	}
 	
 	@Override
@@ -139,9 +138,8 @@ public class FileHandler implements FileController {
 	{
 		try
 		{
-			 String key = removeFileExtension(filepath);
 		     Files.delete(filepath);			 				
-			 this.filenameMap.remove(key);
+			 this.filenameMap.remove(filepath.getFileName().toString());
 		}
 		catch (NoSuchFileException nsf) 
 		{
@@ -186,12 +184,7 @@ public class FileHandler implements FileController {
 
 	}
 	
-	private String removeFileExtension(Path filepath) 
-	{
-		String filename = filepath.getFileName().toString();
-	   return filename.substring(0, filename.lastIndexOf("."));
-	}	
-	
+
 	
 	private  String generateRandomString() {
 		    int leftLimit = 48; 
