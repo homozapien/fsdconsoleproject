@@ -1,11 +1,11 @@
 package com.simplilearn.fsd.main;
 
 import java.io.IOException;
+import java.nio.file.DirectoryNotEmptyException;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.FileSystems;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
-import java.util.Collections;
-import java.util.List;
 import java.util.TreeMap;
 
 import com.simplilearn.fsd.helper.Commander;
@@ -18,8 +18,7 @@ public class FileConsoleApp {
 
 	public static void main(String[] args) {
 
-		try
-		{
+		try {
 			// Display welcome Message
 			Utility.displayWelcomeDetails();
 
@@ -59,12 +58,10 @@ public class FileConsoleApp {
 						"****************************************************************************************");
 				System.out.println(" Execution will be terminated, System will exit! Bye bye...... ");
 			}
-		} 
-		catch (Exception exception) 
-		{
-			System.err.println(exception.getMessage());
+		} catch (Exception exception) {
+			System.err.println(exception);
 			System.out.println("Execution will be terminated, System will exit! Bye bye...... ");
-			System.exit(-1);			
+			System.exit(-1);
 		}
 
 	}
@@ -83,31 +80,25 @@ public class FileConsoleApp {
 	}
 
 	private static void createTempFilesInDirectory(int tempfileCount) throws Exception {
-		try
-		{
+		try {
 			commander.createDefaultFilesInDirectory(tempfileCount);
-		} 
-		catch (IOException exception) 
-		{
+		} catch (IOException exception) {
 			throw new Exception(exception);
 		}
 	}
 
 	private static void displaySortedFileNames() throws Exception {
-		try 
-		{
+		try {
 			TreeMap<String, Path> fileNameMap = commander.retrieveSortedFileNames();
 
-			if (fileNameMap.isEmpty()) 
-			{
+			if (fileNameMap.isEmpty()) {
 				System.out.println("\nWorking directory is empty, 0 file found! ");
 			} else {
-				System.out.printf("\nWorking directory contains %d files shown as sorted list: \n",
-						fileNameMap.size());
-				//	Collections.sort(fileNameList);
+				System.out.printf("\nWorking directory contains %d files shown as sorted list: \n", fileNameMap.size());
+				// Collections.sort(fileNameList);
 				fileNameMap.forEach((key, value) -> {
-					System.out.println(key + "  -   " +value);	
-				} );
+					System.out.println(key + "  -   " + value);
+				});
 			}
 		} catch (Exception exception) {
 			throw new Exception(exception);
@@ -117,110 +108,96 @@ public class FileConsoleApp {
 
 	private static void processUserConsoleInput(String input) throws Exception {
 
-		switch (input.toUpperCase()) {
-		case "ADD":
-			System.out.println("**********************ADDITION ACTION IN PROGRESS*******");
-			try 
-			{
-				String filename = getFileNameFromConsoleInput();
-				if(filename != null)
-				{
-					commander.addFileToWorkingDirector(filename);
+		try {
+			switch (input.toUpperCase()) {
+			case "ADD":
+				System.out.println("**********************ADDITION ACTION IN PROGRESS*******");
+
+				String filenameadd = getFileNameFromConsoleInput();
+				if (filenameadd != null) {
+					commander.addFileToWorkingDirector(filenameadd);
 					System.out.println("File successfully created in workign directory! ");
 					System.out.println("Enter thd DISP input to view the latest content of working directory ");
-				}
-				else
+				} 
+				else 
 				{
-					System.out.println("Invalid input detected in the filename, please try this operation again");
+					System.out.println("\nUnable to process Addition command, please try this operation again with valid filename");
 				}
-			}
-			catch (FileAlreadyExistsException exception) 
-			{
-				//exception.printStackTrace(System.out);
-				System.err.println(exception);
-				//System.out.println(exception.getMessage());
-			}
-			catch (Exception exception) 
-			{
-				throw exception;
-			}
-			break;
-		case "DELE":
-			System.out.println("**********************DELETION ACTION IN PROGRESS*******");
-			try 
-			{
-				String filename = getFileNameFromConsoleInput();
-				if(filename != null)
-				{
-					commander.deleteFileFromDirectory(filename);
+
+				break;
+			case "DELE":
+				System.out.println("**********************DELETION ACTION IN PROGRESS*******");
+
+				String filenamedelete = getFileNameFromConsoleInput();
+				if (filenamedelete != null) {
+					commander.deleteFileFromDirectory(filenamedelete);
 					System.out.println("File successfully deleted in working directory! ");
 					System.out.println("Enter thd DISP input to view refreshed working directory ");
 
-				}
-				else
+				} 
+				else 
 				{
-					System.out.println("Please try this operation again");
+					System.out.println("\nUnable to process Deletion command, please try this operation again with valid filename");
 				}
-			} 
-			catch (Exception exception) 
-			{
-				throw exception;
-			}
-			break;
-		case "DISP":
-			System.out.println("**********************DISPLAY ACTION IN PROGRESS*******");
-			try 
-			{
+
+				break;
+			case "DISP":
+				System.out.println("**********************DISPLAY ACTION IN PROGRESS*******");
+
 				displaySortedFileNames();
-			} 
-			catch (Exception exception) 
-			{
-				throw exception;
-			}
-			break;
-		case "SEAR":
-			System.out.println("**********************SEARCH ACTION IN PROGRESS*******");
-			try {
-				String filename = getFileNameFromConsoleInput();
 
-				if(null != filename)
-				{
+				break;
+			case "SEAR":
+				System.out.println("**********************SEARCH ACTION IN PROGRESS*******");
 
-					if (commander.checkIfFileExistInDirectory(filename))
-						System.out.println("The entered filename " + filename + " exists in the working directory ");
+				String filenamesearch = getFileNameFromConsoleInput();
+				if (null != filenamesearch) {
+
+					if (commander.checkIfFileExistInDirectory(filenamesearch))
+						System.out.println(
+								"The entered filename " + filenamesearch + " exists in the working directory ");
 					else
-						System.out.println("The entered filename " + filename + " does not exist in the working directory ");
-
-				}
-				else
+						System.out.println(
+								"The entered filename " + filenamesearch + " does not exist in the working directory ");
+				} 
+				else 
 				{
-					System.out.println("Please try this operation again");
+					System.out.println("\nUnable to process Search command, please try this operation again with valid filename");
 				}
-			} catch (Exception exception) {
-				throw exception;
-			}
-			break;
-		case "RETR":
-			System.out.println("**********************RETRIEVAL ACTION IN PROGRESS*******");
-			try {
+
+				break;
+			case "RETR":
+				System.out.println("**********************RETRIEVAL ACTION IN PROGRESS*******");
 				String filename2Retr = Utility.promptForConsoleFileName();
 
-			} catch (Exception exception) {
-				throw exception;
+				break;
+			default:
+
 			}
-			break;
-		default:
-
+		} catch (NoSuchFileException nsf) 
+		{
+			System.err.println(nsf);
+			System.err.println("Try the command again!");
+		} 
+		catch (DirectoryNotEmptyException dne) 
+		{
+			System.err.println(dne);
+			System.err.println("Try the command again!");
+		} catch (FileAlreadyExistsException exception) 
+		{
+			System.err.println(exception);
+			System.err.println("Try the command again!");
+		} 
+		catch (Exception exception) 
+		{
+			throw exception;
 		}
-
 
 	}
 
-	private static String getFileNameFromConsoleInput() 
-	{
+	private static String getFileNameFromConsoleInput() {
 		String filename = Utility.promptForConsoleFileName();
-		if(null == filename)
-		{
+		if (null == filename) {
 			return null;
 		}
 		return workingPath + FileSystems.getDefault().getSeparator() + filename;

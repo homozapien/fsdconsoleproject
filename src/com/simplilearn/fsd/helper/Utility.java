@@ -21,8 +21,8 @@ public class Utility
 	{
 		System.out.println("\n***************************** Brief Execution Flow **********************************");
 		System.out.println("\nStep 1: Root Path is created based on command-line argument during startup!");
-		System.out.println("\nStep 2: If no argument is provided, the java user directory forms the root path ");
-		System.out.println("\nStep 3: Up to 6 files may initially be created in a folder of the root path !");
+		System.out.println("\nStep 2: If no argument is provided, the java user directory forms the working path ");
+		System.out.println("\nStep 3: Up to 6 files may initially be created in a folder of the working path !");
 		System.out.println("\nStep 4: The current state of working directory may be displayed intermittently!");
 		System.out.println("\nStep 5: Execution is heavily reliant on console inputs by the user");
 		System.out.println("*****************************************************************************************");

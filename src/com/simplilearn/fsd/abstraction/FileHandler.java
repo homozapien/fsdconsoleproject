@@ -134,7 +134,7 @@ public class FileHandler implements FileController {
 
 
 	@Override
-	public void deleteFileInFolder(Path filepath) throws IOException
+	public void deleteFileInFolder(Path filepath) throws NoSuchFileException, DirectoryNotEmptyException, IOException
 	{
 		try
 		{
@@ -143,10 +143,10 @@ public class FileHandler implements FileController {
 		}
 		catch (NoSuchFileException nsf) 
 		{
-		    throw new IOException(nsf);
+		    throw nsf;
 		} 
 		catch (DirectoryNotEmptyException dne) {
-			throw new IOException(dne);
+			throw dne;
 		}
 		catch(IOException exception)
 		{

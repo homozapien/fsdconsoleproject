@@ -1,7 +1,9 @@
 package com.simplilearn.fsd.helper;
 
 import java.io.IOException;
+import java.nio.file.DirectoryNotEmptyException;
 import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.TreeMap;
@@ -47,10 +49,21 @@ public class Commander {
 		return this.fileHandler.checkIfFileExistInDirectory(Paths.get(filepath));
 	}
 
-	public void deleteFileFromDirectory(String filepath) throws IOException {
-		try {
+	public void deleteFileFromDirectory(String filepath) throws NoSuchFileException, DirectoryNotEmptyException, IOException {
+		try 
+		{
 			this.fileHandler.deleteFileInFolder(Paths.get(filepath));
-		} catch (IOException e) {
+		} 
+		catch(NoSuchFileException     e )
+		{
+			throw e;
+		}
+		catch(DirectoryNotEmptyException dne )
+		{
+			throw dne;
+		}
+		catch(IOException   e )
+		{
 			throw e;
 		}
 
