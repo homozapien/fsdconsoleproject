@@ -18,5 +18,5 @@ public interface FileController
 	
 	public void deleteFileInFolder(Path filepath) throws NoSuchFileException, DirectoryNotEmptyException, IOException;	
 	
-	public File retrieveFileFromDirectory(Path filepath) throws IOException;
+	public Path retrieveFileFromDirectory(Path filepath);
 }

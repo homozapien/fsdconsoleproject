@@ -124,7 +124,7 @@ public class Utility
 	
 	private static boolean validateStringFilenames(String filename)
 	{
-		 String REGEX_PATTERN = "^[A-za-z0-9.]{1,2}\\.(tmp|txt|log)$";
+		 String REGEX_PATTERN = "^[A-za-z0-9]{1,255}\\.(tmp|txt|log)$";
           
 		 if (filename == null || filename.isEmpty()) 
 		 {

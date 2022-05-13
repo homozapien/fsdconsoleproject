@@ -122,9 +122,9 @@ public class FileHandler implements FileController {
 	}
 	
 	@Override
-	public File retrieveFileFromDirectory(Path filepath) throws IOException {
-		// TODO Auto-generated method stub
-		return null;
+	public Path retrieveFileFromDirectory(Path filepath) 
+	{
+		return this.filenameMap.get(filepath.getFileName().toString());		
 	}
 	
 	public TreeMap<String, Path> retrieveSortedFileNames() 

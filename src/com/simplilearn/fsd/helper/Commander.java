@@ -35,7 +35,8 @@ public class Commander {
 	}
 
 	public void addFileToWorkingDirector(String filepath) throws FileAlreadyExistsException, IOException {
-		try {
+		try 
+		{
 			this.fileHandler.addFileToFolder(Paths.get(filepath));
 		} catch (FileAlreadyExistsException fae) {
 			throw fae;
@@ -45,7 +46,8 @@ public class Commander {
 
 	}
 
-	public boolean checkIfFileExistInDirectory(String filepath) {
+	public boolean checkIfFileExistInDirectory(String filepath) 
+	{
 		return this.fileHandler.checkIfFileExistInDirectory(Paths.get(filepath));
 	}
 
@@ -73,9 +75,15 @@ public class Commander {
 		return ((FileHandler) (this.fileHandler)).retrieveSortedFileNames();
 	}
 
-	private void createFileHandler(String rootPath) {
+	public Path retrieveFileFromDirectory(String filepath) 
+	{		
+	 return this.fileHandler.retrieveFileFromDirectory(Paths.get(filepath));			
+	}
+	
+    private void createFileHandler(String rootPath) {
 		this.fileHandler = new FileHandler(rootPath);
 
 	}
+
 
 }

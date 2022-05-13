@@ -1,9 +1,13 @@
 package com.simplilearn.fsd.main;
 
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.file.DirectoryNotEmptyException;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.FileSystems;
+import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.util.TreeMap;
@@ -68,10 +72,13 @@ public class FileConsoleApp {
 
 	private static String createRootDirectory() throws Exception {
 		String demopath = null;
-		try {
+		try 
+		{
 			demopath = commander.createRootDirectory();
 
-		} catch (IOException exception) {
+		} 
+		catch (IOException exception) 
+		{
 			throw new Exception(exception);
 		}
 
@@ -82,13 +89,17 @@ public class FileConsoleApp {
 	private static void createTempFilesInDirectory(int tempfileCount) throws Exception {
 		try {
 			commander.createDefaultFilesInDirectory(tempfileCount);
-		} catch (IOException exception) {
-			throw new Exception(exception);
+		} 
+		catch (IOException exception) 
+		{
+			System.err.println(exception);
+			//throw new Exception(exception);
 		}
 	}
 
 	private static void displaySortedFileNames() throws Exception {
-		try {
+		try
+		{
 			TreeMap<String, Path> fileNameMap = commander.retrieveSortedFileNames();
 
 			if (fileNameMap.isEmpty()) {
@@ -169,6 +180,29 @@ public class FileConsoleApp {
 			case "RETR":
 				System.out.println("**********************RETRIEVAL ACTION IN PROGRESS*******");
 				String filename2Retr = Utility.promptForConsoleFileName();
+				if (null != filename2Retr) {
+
+					Path file =  commander.retrieveFileFromDirectory(filename2Retr);
+					
+					if(file != null)
+					{
+						System.out.println("*************** Start Show Content of File " + filename2Retr + " *****************");
+						
+						          printFileContent( file);
+						          
+						System.out.println("*************** End of Show Content of File " + filename2Retr + " *****************");
+					}										
+					else
+					{
+						System.out.println("The entered filename " + filename2Retr + " does not exist in the working directory and can't be retrieved ");
+								
+					}
+				} 
+				else 
+				{
+					System.out.println("\nUnable to process Search command, please try this operation again with valid filename");
+				}
+				
 
 				break;
 			default:
@@ -177,16 +211,16 @@ public class FileConsoleApp {
 		} catch (NoSuchFileException nsf) 
 		{
 			System.err.println(nsf);
-			System.err.println("Try the command again!");
+			System.err.println("Try the command again with valid user input!");
 		} 
 		catch (DirectoryNotEmptyException dne) 
 		{
 			System.err.println(dne);
-			System.err.println("Try the command again!");
+			System.err.println("Try the command again with valid user input!");
 		} catch (FileAlreadyExistsException exception) 
 		{
 			System.err.println(exception);
-			System.err.println("Try the command again!");
+			System.err.println("Try the command again with valid user input!");
 		} 
 		catch (Exception exception) 
 		{
@@ -195,6 +229,21 @@ public class FileConsoleApp {
 
 	}
 
+	private static void printFileContent(final Path file)
+	{
+	
+		Charset charset = Charset.forName("US-ASCII");
+		try (BufferedReader reader = Files.newBufferedReader(file, charset)) {
+		    String line = null;
+		    while ((line = reader.readLine()) != null) {
+		        System.out.println(line);
+		    }
+		} catch (IOException x) {
+		    System.err.format("IOException: %s%n", x);
+		}
+		
+	}
+	
 	private static String getFileNameFromConsoleInput() {
 		String filename = Utility.promptForConsoleFileName();
 		if (null == filename) {
