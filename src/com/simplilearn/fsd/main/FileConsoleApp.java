@@ -152,7 +152,7 @@ public class FileConsoleApp {
 				}
 
 				break;
-			case "DISP":
+			case "RETR" :
 				System.out.println("**********************DISPLAY ACTION IN PROGRESS*******");
 
 				displaySortedFileNames();
@@ -177,7 +177,7 @@ public class FileConsoleApp {
 				}
 
 				break;
-			case "RETR":
+			case "DISP" :
 				System.out.println("**********************RETRIEVAL ACTION IN PROGRESS*******");
 				String filename2Retr = Utility.promptForConsoleFileName();
 				if (null != filename2Retr) {

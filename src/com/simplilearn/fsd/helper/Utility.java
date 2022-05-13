@@ -150,11 +150,11 @@ public class Utility
 	private static String getConsoleInputGuide()
 	{
 		StringBuffer buffer = new StringBuffer("\n\n********************** Console User Input Guide *************************");
-		buffer.append(String.format("\nEnter %s to add a user specified file to the root folder", Constant.FileOperation.ADD))
-		      .append(String.format("\nEnter %s to delete a user specified file from the root folder", Constant.FileOperation.DELE))
-		      .append(String.format("\nEnter %s to search a user for specified file from the root folder", Constant.FileOperation.SEAR))
-		      .append(String.format("\nEnter %s to display files in the root folder",    Constant.FileOperation.DISP))
-		      .append(String.format("\nEnter %s to retrieve a user specified file from the root folder", Constant.FileOperation.RETR))
+		buffer.append(String.format("\nEnter %s to add a user specified file to the working folder", Constant.FileOperation.ADD))
+		      .append(String.format("\nEnter %s to delete a user specified file from the working folder", Constant.FileOperation.DELE))
+		      .append(String.format("\nEnter %s to search a user specified file in the working folder", Constant.FileOperation.SEAR))
+		      .append(String.format("\nEnter %s to rertrieve a user specified file and display it contents",    Constant.FileOperation.DISP))
+		      .append(String.format("\nEnter %s to show all the files in the working working folder", Constant.FileOperation.RETR))
 		      .append(String.format("\nEnter %s to exit or terminate application", Constant.FileOperation.EXIT));
 		
 		return buffer.toString();

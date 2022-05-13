@@ -22,12 +22,12 @@ public class Constant
    
    enum FileOperation
    {
-	   ADD,       //for Addition of a file
-	   DELE,     //for deletion of a file
-	   DISP,     //for display of all file
-	   SEAR,	//check if a file exist in folder
-	   RETR,	//Retrieve a file  
-	   EXIT    //terminate application
+	   ADD,       //Command to Add a file to a working directory
+	   DELE,     //Command to delete a file from working directory
+	   DISP,     //COmmand to retrieve a file and display it is content
+	   SEAR,	//Command to Check if a file exist in Working directory
+	   RETR,	//Command to retrieve all files from the working directory  
+	   EXIT    //Command to terminate or exit application
    }
    
   
