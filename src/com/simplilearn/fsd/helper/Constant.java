@@ -11,12 +11,11 @@ public class Constant
    public static final String FILENAME =  "Enter the desired filename to Add or Delete or Retrieve to/from the working directory ";
    public static final String FILENUM  =  "Enter the number of random files to create initially in working directory, valid range 0 to 6 ";
    public static final String ROOT     =  System.getProperty("user.dir");
-   public static final String MYPATH   =  "/foobar";
-   public static final String FILE_PREFIX = "demo";
+   public static final String MYPATH   =  "/workingpath";
    public static final String FILE_SUFFIX = ".txt";
-   public static final int INPUT_COUNT = 3; //used to control inavlid user console inuput 
-   public static final int MIN_SEED_FILES = 0; //Note: negative Value is not validated
-   public static final int MAX_SEED_FILES = 6; //value to keep small for prototyping
+   public static final int INPUT_COUNT = 3; 
+   public static final int MIN_SEED_FILES = 0; 
+   public static final int MAX_SEED_FILES = 6; 
    
    
    
