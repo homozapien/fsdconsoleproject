@@ -38,7 +38,6 @@ public class FileHandler implements FileController {
 	public FileHandler(String rootPath) 
 	{
 		this.rootPath    = rootPath;
-		//this.filenameMap = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 		this.filenameMap = new TreeMap<>();
 	}
 
