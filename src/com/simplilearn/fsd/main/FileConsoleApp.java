@@ -128,7 +128,7 @@ public class FileConsoleApp {
 				if (filenameadd != null) {
 					commander.addFileToWorkingDirector(filenameadd);
 					System.out.println("File successfully created in workign directory! ");
-					System.out.println("Enter thd DISP input to view the latest content of working directory ");
+					System.out.println("Enter thd RETR command next to view the current state working directory ");
 				} 
 				else 
 				{
@@ -140,7 +140,8 @@ public class FileConsoleApp {
 				System.out.println("**********************DELETION ACTION IN PROGRESS*******");
 
 				String filenamedelete = getFileNameFromConsoleInput();
-				if (filenamedelete != null) {
+				if (filenamedelete != null) 
+				{
 					commander.deleteFileFromDirectory(filenamedelete);
 					System.out.println("File successfully deleted in working directory! ");
 					System.out.println("Enter thd DISP input to view refreshed working directory ");
@@ -179,7 +180,7 @@ public class FileConsoleApp {
 				break;
 			case "DISP" :
 				System.out.println("**********************RETRIEVAL ACTION IN PROGRESS*******");
-				String filename2Retr = Utility.promptForConsoleFileName();
+				String filename2Retr = getFileNameFromConsoleInput();
 				if (null != filename2Retr) {
 
 					Path file =  commander.retrieveFileFromDirectory(filename2Retr);
@@ -246,7 +247,8 @@ public class FileConsoleApp {
 	
 	private static String getFileNameFromConsoleInput() {
 		String filename = Utility.promptForConsoleFileName();
-		if (null == filename) {
+		if (null == filename) 
+		{
 			return null;
 		}
 		return workingPath + FileSystems.getDefault().getSeparator() + filename;
